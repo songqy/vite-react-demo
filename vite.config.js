@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import vitePluginImp from 'vite-plugin-imp';
+import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,6 +18,9 @@ export default defineConfig({
           style: (name) => `antd-mobile/lib/${name}/style/index.less`,
         },
       ],
+    }),
+    legacy({
+      targets: ['defaults', 'not IE 11'],
     }),
   ],
   css: {
