@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import routes from './routes';
 import BasicLayout from '../layout/BasicLayout';
@@ -13,7 +13,7 @@ const Routers = () => {
               <Route
                 exact
                 path={route.path}
-                key={route.key}
+                key={route.path}
                 component={route.component}
               ></Route>
             ))}

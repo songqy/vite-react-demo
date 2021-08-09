@@ -1,13 +1,12 @@
-import React from 'react';
 import { Menu } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import routes from '../router/routes';
 
-const BasicLayout = (props) => {
+const BasicLayout: React.FC = (props) => {
   const { children } = props;
   const history = useHistory();
   const { pathname } = useLocation();
-  const handleClick = (val) => {
+  const handleClick = (val: any) => {
     if (pathname !== val.key) {
       history.push(val.key);
     }
