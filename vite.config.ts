@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import vitePluginImp from 'vite-plugin-imp';
 import legacy from '@vitejs/plugin-legacy';
+import { visualizer } from 'rollup-plugin-visualizer';
 import reactJsx from 'vite-react-jsx';
 
 const plugins = [
@@ -25,6 +26,14 @@ if (process.env.legacy) {
       targets: ['defaults', 'not IE 11'],
     })
   );
+}
+
+if (process.env.analyze) {
+  plugins.push(visualizer({ 
+    open: true, 
+    gzipSize: true,
+    brotliSize: true,
+  }));
 }
 
 // https://vitejs.dev/config/
