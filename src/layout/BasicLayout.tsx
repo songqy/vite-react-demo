@@ -1,14 +1,14 @@
 import { Menu } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import routes from '../router/routes';
 
 const BasicLayout: React.FC = (props) => {
   const { children } = props;
-  const history = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const handleClick = (val: any) => {
     if (pathname !== val.key) {
-      history.push(val.key);
+      navigate(val.key);
     }
   };
   return (

@@ -13,11 +13,8 @@ const plugins = [
         libName: 'antd',
         style: (name) => `antd/lib/${name}/style/index.less`,
       },
-      {
-        libName: 'antd-mobile',
-        style: (name) => `antd-mobile/lib/${name}/style/index.less`,
-      },
     ],
+    exclude: ['antd-mobile'],
   }),
 ];
 
@@ -26,7 +23,7 @@ if (process.env.legacy) {
   plugins.push(
     legacy({
       targets: ['defaults', 'not IE 11'],
-    }),
+    })
   );
 }
 
@@ -43,5 +40,8 @@ export default defineConfig({
   },
   build: {
     target: 'es2015',
+  },
+  server: {
+    port: 9000,
   },
 });

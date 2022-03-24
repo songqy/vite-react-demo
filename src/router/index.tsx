@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Route, Switch, HashRouter as Router } from 'react-router-dom';
+import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import routes from './routes';
 import BasicLayout from '../layout/BasicLayout';
 
@@ -8,16 +8,18 @@ const Routers = () => {
     <Router>
       <BasicLayout>
         <Suspense fallback={<div>loading</div>}>
-          <Switch>
-            {routes.map((route) => (
-              <Route
-                exact
-                path={route.path}
-                key={route.path}
-                component={route.component}
-              ></Route>
-            ))}
-          </Switch>
+          <Routes>
+            {routes.map((route) => {
+              const Component = route.component;
+              return (
+                <Route
+                  path={route.path}
+                  key={route.path}
+                  element={<Component />}
+                />
+              );
+            })}
+          </Routes>
         </Suspense>
       </BasicLayout>
     </Router>

@@ -1,14 +1,13 @@
-import { Button, WhiteSpace, WingBlank } from 'antd-mobile';
+import { Button } from 'antd-mobile';
 
 const page2 = () => {
   return (
     <div>
       <h3>page2</h3>
       <div>
-        <WingBlank>
-          <Button type="primary">primary</Button>
-          <WhiteSpace />
-        </WingBlank>
+        <Button block color="primary">
+          primary
+        </Button>
       </div>
     </div>
   );
