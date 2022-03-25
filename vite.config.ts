@@ -47,6 +47,13 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@c': '/src/components',
+      '@u': '/src/utils',
+    },
+  },
   build: {
     target: 'es2015',
   },

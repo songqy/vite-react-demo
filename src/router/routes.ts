@@ -21,6 +21,11 @@ const routes = [
     name: 'Page2',
     component: lazyImport('Page2'),
   },
+  {
+    path: '/page3',
+    name: 'Page3',
+    component: lazyImport('Page3'),
+  },
 ];
 
 export default routes;
