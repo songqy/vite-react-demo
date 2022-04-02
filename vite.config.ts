@@ -24,16 +24,18 @@ if (process.env.legacy) {
   plugins.push(
     legacy({
       targets: ['defaults', 'not IE 11'],
-    })
+    }),
   );
 }
 
 if (process.env.analyze) {
-  plugins.push(visualizer({ 
-    open: true, 
-    gzipSize: true,
-    brotliSize: true,
-  }));
+  plugins.push(
+    visualizer({
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  );
 }
 
 // https://vitejs.dev/config/
@@ -58,6 +60,13 @@ export default defineConfig({
     target: 'es2015',
   },
   server: {
-    port: 9000,
+    port: 9200,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 });

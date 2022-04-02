@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from 'antd-mobile';
+import { Button } from 'antd';
 
 const Home = () => {
   const [count, setCount] = useState(0);
@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div>
       <div>Home</div>
-      <Button block color="primary" onClick={() => setCount((c) => c + 1)}>
+      <Button block type="primary" onClick={() => setCount((c) => c + 1)}>
         ADD
       </Button>
       count:{count}
