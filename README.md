@@ -7,8 +7,9 @@ this is a project for vite using React and antd
 * antd import
 * react.lazy
 
-## pnpm install
-安装依赖
+## 命令
 
-## pnpm dev
-运行开发模式
+```bash
+pnpm install
+pnpm dev
+```
