@@ -12,7 +12,7 @@ const plugins = [
     libList: [
       {
         libName: 'antd',
-        style: (name) => `antd/lib/${name}/style/index.less`,
+        style: (name) => `antd/es/${name}/style`,
       },
     ],
     exclude: ['antd-mobile'],

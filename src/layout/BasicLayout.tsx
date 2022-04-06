@@ -1,6 +1,7 @@
 import { Menu } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import routes from '../router/routes';
+import styles from './BasicLayout.module.less';
 
 const BasicLayout: React.FC = (props) => {
   const { children } = props;
@@ -12,13 +13,13 @@ const BasicLayout: React.FC = (props) => {
     }
   };
   return (
-    <div>
+    <div className={styles.layout}>
       <Menu mode="horizontal" onClick={handleClick} selectedKeys={[pathname]}>
         {routes.map(({ path, name }) => {
           return <Menu.Item key={path}>{name}</Menu.Item>;
         })}
       </Menu>
-      {children}
+      <div className={styles.content}>{children}</div>
     </div>
   );
 };

@@ -1,10 +1,12 @@
 import Router from './router';
+import zhCN from 'antd/lib/locale/zh_CN';
+import { ConfigProvider } from 'antd';
 
 function App() {
   return (
-    <div>
+    <ConfigProvider locale={zhCN}>
       <Router />
-    </div>
+    </ConfigProvider>
   );
 }
 

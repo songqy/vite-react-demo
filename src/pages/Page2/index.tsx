@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import { Space, Button } from 'antd';
+import { Space, Button, Table } from 'antd';
 import Text from './Text';
 
-const Compoents: Record<string, React.FC> = {
+const Compoents: Record<string, unknown> = {
+  Fragment: React.Fragment,
   Space,
   Button,
   Text,
-  Fragment: React.Fragment,
+  Table,
 };
 
 interface EleData {
