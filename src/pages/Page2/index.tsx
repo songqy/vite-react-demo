@@ -1,6 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import { Space, Button, Table } from 'antd';
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+} from 'react';
+import { Space, Button, Table, Spin } from 'antd';
 import Text from './Text';
 
 const Compoents: Record<string, unknown> = {
@@ -18,7 +24,7 @@ interface EleData {
 
 const Page2 = () => {
   const [eleData, setEleData] = useState<EleData>();
-  const [stateData, setStateData] = useState();
+  const stateData = useRef();
 
   const fetchComponent = useCallback((componentData = {}) => {
     console.log('fetchComponent', componentData);
@@ -27,7 +33,7 @@ const Page2 = () => {
       .then((data) => {
         console.log('data', data.data);
         setEleData(data.data.ele);
-        setStateData(data.data.state);
+        stateData.current = data.data.state;
       })
       .catch((err) => {
         console.error(err);
@@ -46,14 +52,19 @@ const Page2 = () => {
         });
       }
       const newProps = { ...props };
-      if (props.onClick) {
-        const actionName = props.onClick;
-        newProps.onClick = () => {
-          fetchComponent({
-            state: stateData,
-            action: actionName,
-          });
-        };
+      if (props.actions) {
+        for (const action of props.actions) {
+          const { event, name } = action;
+          newProps[event] = () => {
+            fetchComponent({
+              state: stateData.current,
+              action: {
+                name,
+                payload: [],
+              },
+            });
+          };
+        }
       }
       return React.createElement(
         Compoents[type] as React.FC,
@@ -61,14 +72,18 @@ const Page2 = () => {
         children,
       );
     },
-    [fetchComponent, stateData],
+    [fetchComponent],
   );
 
   const ele = useMemo(() => {
     if (eleData) {
       return createEle(eleData.type, eleData.props);
     }
-    return null;
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <Spin />
+      </div>
+    );
   }, [eleData, createEle]);
 
   useEffect(() => {
