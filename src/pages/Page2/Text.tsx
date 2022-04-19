@@ -1,8 +1,12 @@
 import type { FC } from 'react';
 
-const Text: FC = (props) => {
-  const { children } = props;
-  return <div>{children}</div>;
+export interface TextProps {
+  style?: React.CSSProperties;
+}
+
+const Text: FC<TextProps> = (props) => {
+  const { children, style } = props;
+  return <div style={style}>{children}</div>;
 };
 
 export default Text;

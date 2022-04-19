@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import { Space, Button, Table, Spin } from 'antd';
+import { Space, Button, Table, Spin, Avatar, Badge } from 'antd';
 import Text from './Text';
 
 const Components = {
@@ -15,6 +15,8 @@ const Components = {
   Button,
   Text,
   Table,
+  Avatar,
+  Badge,
 };
 
 type componentType = keyof typeof Components;
@@ -49,6 +51,9 @@ const Page2 = () => {
 
   const createEle = useCallback(
     (type: componentType, props: Record<string, any>) => {
+      if (!(type in Components)) {
+        throw new Error(`${type} is not in Components`);
+      }
       let children = props.children;
       if (children?.length) {
         children = children.map((v: EleData) => {
@@ -79,9 +84,13 @@ const Page2 = () => {
   );
 
   const ele = useMemo(() => {
-    let eleDom = <div />;
+    let eleDom: React.ReactNode = <div />;
     if (eleData) {
-      eleDom = createEle(eleData.type, eleData.props);
+      try {
+        eleDom = createEle(eleData.type, eleData.props);
+      } catch (err) {
+        eleDom = err + '';
+      }
     }
     return <Spin spinning={loading}>{eleDom}</Spin>;
   }, [loading, eleData, createEle]);
