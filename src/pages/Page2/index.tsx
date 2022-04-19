@@ -89,7 +89,9 @@ const Page2 = () => {
       try {
         eleDom = createEle(eleData.type, eleData.props);
       } catch (err) {
-        eleDom = err + '';
+        if (err instanceof Error) {
+          eleDom = err.message;
+        }
       }
     }
     return <Spin spinning={loading}>{eleDom}</Spin>;
