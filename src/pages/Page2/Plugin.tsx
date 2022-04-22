@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from 'react';
 import axios from 'axios';
-import { Spin } from 'antd';
+import { message, Spin } from 'antd';
 import type { componentType } from '@c/plugin-components';
 import PluginComponents from '@c/plugin-components';
 
@@ -15,9 +15,15 @@ interface EleData {
   props: Record<string, any>;
 }
 
+interface ErrData {
+  errMessage?: string;
+  stack?: string;
+}
+
 const Plugin = () => {
   const [eleData, setEleData] = useState<EleData>();
   const [loading, setLoading] = useState(true);
+  const [errData, setErrData] = useState<ErrData>({});
   const stateData = useRef();
 
   const fetchComponent = useCallback((componentData = {}) => {
@@ -25,10 +31,16 @@ const Plugin = () => {
     console.log('fetchComponent', componentData);
     axios
       .post('/api', componentData)
-      .then((data) => {
-        console.log('data', data.data);
-        setEleData(data.data.ele);
-        stateData.current = data.data.state;
+      .then((res) => {
+        const { data } = res;
+        console.log('data', data);
+        if (data.errMessage) {
+          message.error(data.errMessage);
+          setErrData(data);
+        } else {
+          setEleData(data.ele);
+          stateData.current = data.state;
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -74,7 +86,14 @@ const Plugin = () => {
 
   const ele = useMemo(() => {
     let eleDom: React.ReactNode = <div />;
-    if (eleData) {
+
+    if (errData.errMessage) {
+      eleDom = (
+        <div>
+          <div style={{ whiteSpace: 'pre' }}>{errData.stack}</div>
+        </div>
+      );
+    } else if (eleData) {
       try {
         eleDom = createEle(eleData.type, eleData.props);
       } catch (err) {
@@ -84,7 +103,7 @@ const Plugin = () => {
       }
     }
     return <Spin spinning={loading}>{eleDom}</Spin>;
-  }, [loading, eleData, createEle]);
+  }, [loading, eleData, createEle, errData]);
 
   useEffect(() => {
     fetchComponent();
