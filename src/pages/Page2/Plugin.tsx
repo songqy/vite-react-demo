@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from 'react';
 import axios from 'axios';
-import { message, Spin } from 'antd';
+import { message, Spin, Alert } from 'antd';
 import type { componentType } from '@c/plugin-components';
 import PluginComponents from '@c/plugin-components';
 
@@ -89,9 +89,12 @@ const Plugin = () => {
 
     if (errData.errMessage) {
       eleDom = (
-        <div>
-          <div style={{ whiteSpace: 'pre' }}>{errData.stack}</div>
-        </div>
+        <Alert
+          message="Warning"
+          description={<div style={{ whiteSpace: 'pre' }}>{errData.stack}</div>}
+          type="warning"
+          showIcon
+        />
       );
     } else if (eleData) {
       try {
