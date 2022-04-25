@@ -11,6 +11,7 @@
     "antd": "^4.19.5",
     "antd-mobile": "^5.8.0",
     "axios": "^0.26.1",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^1.2.1",
+    "@types/lodash": "^4.14.182",
     "@types/node": "^16",
     "@types/react": "^17.0.16",
     "@types/react-dom": "^17.0.9",

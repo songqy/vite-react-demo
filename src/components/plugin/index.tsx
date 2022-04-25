@@ -1,14 +1,18 @@
+import type { FC } from 'react';
 import React, {
   useState,
   useRef,
   useCallback,
   useMemo,
   useEffect,
+  memo,
 } from 'react';
 import axios from 'axios';
 import { message, Spin, Alert } from 'antd';
-import type { componentType } from '@c/plugin-components';
-import PluginComponents from '@c/plugin-components';
+import { debounce } from 'lodash';
+import type { componentType } from './components';
+import PluginComponents from './components';
+import styles from './index.module.less';
 
 interface EleData {
   type: componentType;
@@ -20,35 +24,42 @@ interface ErrData {
   stack?: string;
 }
 
-const Plugin = () => {
+const Plugin: FC<Record<string, any>> = (pluginProps) => {
   const [eleData, setEleData] = useState<EleData>();
   const [loading, setLoading] = useState(true);
   const [errData, setErrData] = useState<ErrData>({});
   const stateData = useRef();
 
-  const fetchComponent = useCallback((componentData = {}) => {
-    setLoading(true);
-    console.log('fetchComponent', componentData);
-    axios
-      .post('/api', componentData)
-      .then((res) => {
-        const { data } = res;
-        console.log('data', data);
-        if (data.errMessage) {
-          message.error(data.errMessage);
-          setErrData(data);
-        } else {
-          setEleData(data.ele);
-          stateData.current = data.state;
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const fetchComponent = useCallback(
+    (componentData = {}) => {
+      setLoading(true);
+      const requestData = {
+        props: pluginProps,
+        ...componentData,
+      };
+      console.log('fetchComponent', requestData);
+      axios
+        .post('/api', requestData)
+        .then((res) => {
+          const { data } = res;
+          console.log('data', data);
+          if (data.errMessage) {
+            message.error(data.errMessage);
+            setErrData(data);
+          } else {
+            setEleData(data.ele);
+            stateData.current = data.state;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [pluginProps],
+  );
 
   const createEle = useCallback(
     (type: componentType, props: Record<string, any>) => {
@@ -63,29 +74,42 @@ const Plugin = () => {
           }
           return v;
         });
+      } else {
+        children = undefined;
       }
-      const newProps = { ...props };
+      const { debounceParams, ...newProps } = props;
       if (props.actions) {
         for (const action of props.actions) {
           const { event, name } = action;
-          newProps[event] = () => {
+          const handleAction = (e: any) => {
+            const payload = [];
+            if (event === 'onChange') {
+              const val = e?.target?.value;
+              payload.push(val);
+            }
             fetchComponent({
               state: stateData.current,
               action: {
                 name,
-                payload: [],
+                payload,
               },
             });
           };
+          if (debounceParams) {
+            newProps[event] = debounce(handleAction, ...debounceParams);
+          } else {
+            newProps[event] = handleAction;
+          }
         }
       }
+      // @ts-ignore
       return React.createElement(PluginComponents[type], newProps, children);
     },
     [fetchComponent],
   );
 
   const ele = useMemo(() => {
-    let eleDom: React.ReactNode = <div />;
+    let eleDom: React.ReactNode = <div className={styles.blank} />;
 
     if (errData.errMessage) {
       eleDom = (
@@ -105,14 +129,14 @@ const Plugin = () => {
         }
       }
     }
-    return <Spin spinning={loading}>{eleDom}</Spin>;
-  }, [loading, eleData, createEle, errData]);
+    return eleDom;
+  }, [eleData, createEle, errData]);
 
   useEffect(() => {
     fetchComponent();
   }, [fetchComponent]);
 
-  return <div>{ele}</div>;
+  return <Spin spinning={loading}>{ele}</Spin>;
 };
 
-export default Plugin;
+export default memo(Plugin);
