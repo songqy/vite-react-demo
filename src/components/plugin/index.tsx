@@ -48,11 +48,17 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
             setErrData(data);
           } else {
             setEleData(data.ele);
+            setErrData({});
             stateData.current = data.state;
           }
         })
         .catch((err) => {
-          console.error(err);
+          if (err.response) {
+            setErrData({
+              errMessage: err.response.statusText,
+              stack: err.response.data,
+            });
+          }
         })
         .finally(() => {
           setLoading(false);
@@ -95,8 +101,9 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
               },
             });
           };
-          if (debounceParams) {
-            newProps[event] = debounce(handleAction, ...debounceParams);
+          if (event === 'onChange') {
+            const { wait = 500, options } = debounceParams || {};
+            newProps[event] = debounce(handleAction, wait, options);
           } else {
             newProps[event] = handleAction;
           }
@@ -111,11 +118,19 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
   const ele = useMemo(() => {
     let eleDom: React.ReactNode = <div className={styles.blank} />;
 
-    if (errData.errMessage) {
+    if (errData?.errMessage) {
+      const description = (
+        <div>
+          <div className={styles.stack}>{errData.stack}</div>
+          <div className={styles.fresh} onClick={() => fetchComponent()}>
+            refresh app
+          </div>
+        </div>
+      );
       eleDom = (
         <Alert
-          message="Warning"
-          description={<div style={{ whiteSpace: 'pre' }}>{errData.stack}</div>}
+          message={errData.errMessage}
+          description={description}
           type="warning"
           showIcon
         />
@@ -125,12 +140,12 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
         eleDom = createEle(eleData.type, eleData.props);
       } catch (err) {
         if (err instanceof Error) {
-          eleDom = err.message;
+          setErrData({ errMessage: err.message });
         }
       }
     }
     return eleDom;
-  }, [eleData, createEle, errData]);
+  }, [eleData, createEle, errData, fetchComponent]);
 
   useEffect(() => {
     fetchComponent();
