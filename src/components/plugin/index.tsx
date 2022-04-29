@@ -20,7 +20,7 @@ interface EleData {
 }
 
 interface ErrData {
-  errMessage?: string;
+  message?: string;
   stack?: string;
 }
 
@@ -43,8 +43,8 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
         .then((res) => {
           const { data } = res;
           console.log('data', data);
-          if (data.errMessage) {
-            message.error(data.errMessage);
+          if (data.message) {
+            message.error(data.message);
             setErrData(data);
           } else {
             setEleData(data.ele);
@@ -55,7 +55,7 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
         .catch((err) => {
           if (err.response) {
             setErrData({
-              errMessage: err.response.statusText,
+              message: err.response.statusText,
               stack: err.response.data,
             });
           }
@@ -118,7 +118,7 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
   const ele = useMemo(() => {
     let eleDom: React.ReactNode = <div className={styles.blank} />;
 
-    if (errData?.errMessage) {
+    if (errData?.message) {
       const description = (
         <div>
           <div className={styles.stack}>{errData.stack}</div>
@@ -129,7 +129,7 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
       );
       eleDom = (
         <Alert
-          message={errData.errMessage}
+          message={errData.message}
           description={description}
           type="warning"
           showIcon
@@ -140,7 +140,7 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
         eleDom = createEle(eleData.type, eleData.props);
       } catch (err) {
         if (err instanceof Error) {
-          setErrData({ errMessage: err.message });
+          setErrData({ message: err.message });
         }
       }
     }
