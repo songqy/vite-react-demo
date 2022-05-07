@@ -12,23 +12,11 @@
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@c/*": [
-        "./src/components/*"
-      ],
-      "@u/*": [
-        "./src/utils/*"
-      ],
-    },
+      "@/*": ["./src/*"],
+      "@c/*": ["./src/components/*"],
+      "@u/*": ["./src/utils/*"]
+    }
   },
-  "include": [
-    "src",
-    "typings.d.ts",
-    "vite.config.ts"
-  ],
-  "exclude": [
-    "node_modules",
-  ]
+  "include": ["src", "typings.d.ts", "vite.config.ts"],
+  "exclude": ["node_modules"]
 }

@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
-import { Space, Button, Table, Avatar, Badge, Input } from 'antd';
+import { Space, Button, Table, Avatar, Badge } from 'antd';
 import Text from './Text';
+import SearchInput from './SearchInput';
 
 const Components = {
   Fragment,
@@ -10,7 +11,7 @@ const Components = {
   Table,
   Avatar,
   Badge,
-  Input,
+  SearchInput,
 };
 
 export type componentType = keyof typeof Components;

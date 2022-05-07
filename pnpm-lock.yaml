@@ -2,6 +2,9 @@ lockfileVersion: 5.3
 
 specifiers:
   '@eslint/eslintrc': ^1.2.1
+  '@nebulare/common-components': file:.yalc/@nebulare/common-components
+  '@nebulare/proxima': file:.yalc/@nebulare/proxima
+  '@nebulare/proxima-components': file:.yalc/@nebulare/proxima-components
   '@types/lodash': ^4.14.182
   '@types/node': ^16
   '@types/react': ^17.0.16
@@ -37,6 +40,9 @@ specifiers:
   vite-react-jsx: ^1.1.2
 
 dependencies:
+  '@nebulare/common-components': link:.yalc/@nebulare/common-components
+  '@nebulare/proxima': link:.yalc/@nebulare/proxima
+  '@nebulare/proxima-components': link:.yalc/@nebulare/proxima-components
   antd: 4.19.5_react-dom@17.0.2+react@17.0.2
   antd-mobile: 5.8.0_react-dom@17.0.2+react@17.0.2
   axios: 0.26.1

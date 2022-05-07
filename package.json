@@ -1,5 +1,6 @@
 {
   "version": "0.1.0",
+  "name": "vite-react-demo",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -8,6 +9,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@nebulare/common-components": "file:.yalc/@nebulare/common-components",
+    "@nebulare/proxima": "file:.yalc/@nebulare/proxima",
+    "@nebulare/proxima-components": "file:.yalc/@nebulare/proxima-components",
     "antd": "^4.19.5",
     "antd-mobile": "^5.8.0",
     "axios": "^0.26.1",

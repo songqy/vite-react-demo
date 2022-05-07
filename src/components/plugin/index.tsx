@@ -9,10 +9,9 @@ import React, {
 } from 'react';
 import axios from 'axios';
 import { message, Spin, Alert } from 'antd';
-import { debounce } from 'lodash';
 import type { componentType } from './components';
 import PluginComponents from './components';
-import styles from './index.module.less';
+import styles from './index.less';
 
 interface EleData {
   type: componentType;
@@ -83,14 +82,13 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
       } else {
         children = undefined;
       }
-      const { debounceParams, ...newProps } = props;
+      const newProps = { ...props };
       if (props.actions) {
         for (const action of props.actions) {
           const { event, name } = action;
-          const handleAction = (e: any) => {
+          const handleAction = (val: any) => {
             const payload = [];
-            if (event === 'onChange') {
-              const val = e?.target?.value;
+            if (event === 'onSearch') {
               payload.push(val);
             }
             fetchComponent({
@@ -101,12 +99,7 @@ const Plugin: FC<Record<string, any>> = (pluginProps) => {
               },
             });
           };
-          if (event === 'onChange') {
-            const { wait = 500, options } = debounceParams || {};
-            newProps[event] = debounce(handleAction, wait, options);
-          } else {
-            newProps[event] = handleAction;
-          }
+          newProps[event] = handleAction;
         }
       }
       // @ts-ignore
