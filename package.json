@@ -9,9 +9,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@nebulare/common-components": "file:.yalc/@nebulare/common-components",
-    "@nebulare/proxima": "file:.yalc/@nebulare/proxima",
-    "@nebulare/proxima-components": "file:.yalc/@nebulare/proxima-components",
+    "@nebulare/common-components": "^0.1.1",
+    "@nebulare/proxima": "^0.1.1",
     "antd": "^4.19.5",
     "antd-mobile": "^5.8.0",
     "axios": "^0.26.1",

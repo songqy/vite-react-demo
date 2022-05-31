@@ -1,19 +1,24 @@
-import { NebulaApp, ConfigProvider } from '@nebulare/proxima';
+import PluginLoader from '@/components/plugin-loader';
+
+const plugins = [
+  {
+    header: 'app1',
+    appKey: 'key1',
+  },
+  {
+    header: 'app2',
+    appKey: 'key2',
+  },
+];
 
 const Page2 = () => {
   return (
     <div>
       <h3>page2</h3>
       <div>请求后端返回react结构</div>
-      <ConfigProvider faasApi="/api">
-        <NebulaApp
-          type="ItemPanel"
-          appId="app111"
-          faasApi="/api"
-          rootProps={{ header: 'app1' }}
-        />
-        <NebulaApp type="ItemPanel" rootProps={{ header: 'app2' }} />
-      </ConfigProvider>
+      {plugins.map(({ header, appKey }) => (
+        <PluginLoader header={header} appKey={appKey} key={appKey} />
+      ))}
     </div>
   );
 };
