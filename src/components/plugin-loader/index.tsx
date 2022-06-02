@@ -10,7 +10,10 @@ const PluginLoader = (props: PluginLoaderProps) => {
   const { header, appKey } = props;
   return (
     <ItemPanel header={header}>
-      <UIKitComponent api="/api" appKey={appKey} />
+      <UIKitComponent
+        api={`/api2/execute/${appKey}/installId/key`}
+        appKey={appKey}
+      />
     </ItemPanel>
   );
 };

@@ -1,13 +1,13 @@
 import { defineConfig } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
 import vitePluginImp from 'vite-plugin-imp';
 import legacy from '@vitejs/plugin-legacy';
 import { visualizer } from 'rollup-plugin-visualizer';
-import reactJsx from 'vite-react-jsx';
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
 
 const plugins = [
-  reactRefresh(),
-  reactJsx(), // React 17's automatic JSX runtime for your entire bundle
+  viteCommonjs(),
+  react(),
   vitePluginImp({
     libList: [
       {
@@ -59,9 +59,17 @@ export default defineConfig({
   build: {
     target: 'es2015',
   },
+  optimizeDeps: {
+    include: ['react/jsx-runtime'],
+  },
   server: {
     port: 9200,
     proxy: {
+      '/api2': {
+        target: 'http://localhost:8500',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api2/, ''),
+      },
       '/api': {
         target: 'http://localhost:9000',
         changeOrigin: true,
