@@ -1,5 +1,5 @@
 import ItemPanel from '../item-panel';
-import { UIKitComponent } from '@nebulare/proxima';
+import { UIKitComponent } from '@nebulare/loader';
 
 export interface PluginLoaderProps {
   header: string;
