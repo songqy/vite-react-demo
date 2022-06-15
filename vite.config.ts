@@ -60,7 +60,7 @@ export default defineConfig({
     target: 'es2015',
   },
   optimizeDeps: {
-    include: ['react/jsx-runtime'],
+    include: ['react/jsx-runtime', 'axios'],
   },
   server: {
     port: 9200,
