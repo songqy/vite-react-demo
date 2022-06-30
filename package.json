@@ -9,7 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@nebulare/loader": "^0.1.3",
+    "@nebulare/loader": "^0.1.4",
     "@projectproxima/plugin-sdk": "^0.2.9",
     "antd": "^4.21.3",
     "axios": "^0.26.1",

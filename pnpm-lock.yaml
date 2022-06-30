@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@eslint/eslintrc': ^1.2.1
-  '@nebulare/loader': ^0.1.3
+  '@nebulare/loader': ^0.1.4
   '@originjs/vite-plugin-commonjs': ^1.0.3
   '@projectproxima/plugin-sdk': ^0.2.9
   '@types/lodash': ^4.14.182
@@ -39,7 +39,7 @@ specifiers:
   vite-plugin-imp: ^2.2.0
 
 dependencies:
-  '@nebulare/loader': 0.1.3_e18f70a7ae5f450805c2dbc1ff51a9ac
+  '@nebulare/loader': 0.1.4_e18f70a7ae5f450805c2dbc1ff51a9ac
   '@projectproxima/plugin-sdk': 0.2.9_react@17.0.2
   antd: 4.21.3_react-dom@17.0.2+react@17.0.2
   axios: 0.26.1
@@ -1555,8 +1555,8 @@ packages:
       '@jridgewell/resolve-uri': 3.0.7
       '@jridgewell/sourcemap-codec': 1.4.13
 
-  /@nebulare/loader/0.1.3_e18f70a7ae5f450805c2dbc1ff51a9ac:
-    resolution: {integrity: sha512-DC8OcyqXPuBrotGm6FFUP8ri9YjBIwKhWcl6qY0xZzykG1EFxLMQKx/1ODmoAmujej1dnnRm1YO4IkWysUv+vA==}
+  /@nebulare/loader/0.1.4_e18f70a7ae5f450805c2dbc1ff51a9ac:
+    resolution: {integrity: sha512-ehYJBmm+J1CoqnyLW+x6/m6dtXHZnvJjJoaRT0qyGzKPL8pxd2U66cFkQm5eWrCLuErEODOqqEHuaH3CPJfRtA==}
     peerDependencies:
       '@projectproxima/plugin-sdk': '>=0.2.5'
       axios: '>=0.21.4'
