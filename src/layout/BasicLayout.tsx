@@ -3,12 +3,16 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import routes from '../router/routes';
 import styles from './BasicLayout.module.less';
 
+export interface BasicLayoutProps {
+  children: React.ReactNode;
+}
+
 const menuItems = routes.map(({ path, name }) => ({
   label: name,
   key: path,
 }));
 
-const BasicLayout: React.FC = (props) => {
+const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const { children } = props;
   const navigate = useNavigate();
   const { pathname } = useLocation();
