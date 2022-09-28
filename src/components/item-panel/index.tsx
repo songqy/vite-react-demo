@@ -3,6 +3,7 @@ import { Collapse } from 'antd';
 
 export interface ItemPanelProps {
   header?: string;
+  children: React.ReactNode;
 }
 
 const ItemPanel: FC<ItemPanelProps> = (props) => {

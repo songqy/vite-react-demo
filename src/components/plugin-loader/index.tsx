@@ -1,5 +1,5 @@
 import ItemPanel from '../item-panel';
-import { UIKitComponent } from '@giteeteam/loader';
+// import { UIKitComponent } from '@giteeteam/loader';
 
 export interface PluginLoaderProps {
   header: string;
@@ -10,13 +10,14 @@ export interface PluginLoaderProps {
 }
 
 const PluginLoader = (props: PluginLoaderProps) => {
-  const { header, appId, environmentId, moduleKey, versionId } = props;
+  // const { header, appId, environmentId, moduleKey, versionId } = props;
+  const { header } = props;
   return (
     <ItemPanel header={header}>
-      <UIKitComponent
+      {/* <UIKitComponent
         api={`/api2/v1/apps/${appId}/${environmentId}/${versionId}/functions/${moduleKey}`}
         appKey={appId}
-      />
+      /> */}
     </ItemPanel>
   );
 };

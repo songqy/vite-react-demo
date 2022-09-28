@@ -1,9 +1,11 @@
-import { defineConfig, PluginOption } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vitePluginImp from 'vite-plugin-imp';
 import legacy from '@vitejs/plugin-legacy';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
+
+import type { PluginOption } from 'vite';
 
 const plugins: PluginOption[] = [
   viteCommonjs(),
