@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import vitePluginImp from 'vite-plugin-imp';
 import legacy from '@vitejs/plugin-legacy';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
@@ -10,15 +9,6 @@ import type { PluginOption } from 'vite';
 const plugins: PluginOption[] = [
   viteCommonjs(),
   react(),
-  vitePluginImp({
-    libList: [
-      {
-        libName: 'antd',
-        style: (name) => `antd/es/${name}/style`,
-      },
-    ],
-    exclude: ['antd-mobile'],
-  }),
 ];
 
 if (process.env.legacy) {
@@ -32,7 +22,6 @@ if (process.env.legacy) {
 
 if (process.env.analyze) {
   plugins.push(
-    // @ts-ignore ts类型校验会报错，但是运行正常
     visualizer({
       open: true,
       gzipSize: true,
@@ -60,7 +49,7 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'es2015',
+    target: 'es2020',
   },
   optimizeDeps: {
     include: ['react/jsx-runtime', 'axios'],
