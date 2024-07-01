@@ -18,6 +18,7 @@ const PluginLoader = (props: PluginLoaderProps) => {
         api={`/api2/v1/apps/${appId}/${environmentId}/${versionId}/functions/${moduleKey}`}
         appKey={appId}
       /> */}
+      {'111'}
     </ItemPanel>
   );
 };
